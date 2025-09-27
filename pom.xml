@@ -58,10 +58,9 @@
         <!-- AWS Secrets Manager -->
         <dependency>
             <groupId>io.awspring.cloud</groupId>
-            <artifactId>spring-cloud-starter-aws-secrets-manager-config</artifactId>
-			<version>3.1.0</version>
+            <artifactId>spring-cloud-aws-starter-secrets-manager</artifactId>
+            <version>3.1.0</version>
         </dependency>
-
         <!-- Monitoring (Prometheus / Actuator) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
