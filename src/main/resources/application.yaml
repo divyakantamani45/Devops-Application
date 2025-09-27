@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://mydb.cluster-xxxx.us-east-1.rds.amazonaws.com:5432/mydb
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
