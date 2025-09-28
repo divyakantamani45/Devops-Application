@@ -18,7 +18,7 @@ spec:
       serviceAccountName: devops-sa
       containers:
         - name: devops-app
-          image: devops-ecr-prod/devops-app:latest
+          image: devops-ecr-prod:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

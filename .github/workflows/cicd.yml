@@ -49,8 +49,8 @@ jobs:
           ECR_REPOSITORY: spring-app
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/devops-app:latest .
-          docker push $ECR_REGISTRY/devops-app:latest
+          docker build -t $ECR_REGISTRY/devops-ecr-prod:latest .
+          docker push $ECR_REGISTRY/devops-ecr-prod:latest
 
       # Update kubeconfig for EKS
       - name: Update kubeconfig
