@@ -49,12 +49,12 @@ jobs:
           ECR_REPOSITORY: spring-app
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t $ECR_REGISTRY/devops-app:latest
+          docker push $ECR_REGISTRY/devops-app:latest
 
       # Update kubeconfig for EKS
       - name: Update kubeconfig
-        run: aws eks update-kubeconfig --region us-east-1 --name my-eks-cluster
+        run: aws eks update-kubeconfig --region us-east-1 --name devops-eks-prod
 
       # Deploy to EKS
       - name: Deploy to EKS
@@ -63,5 +63,4 @@ jobs:
           ECR_REPOSITORY: spring-app
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          kubectl set image deployment/spring-app-deployment spring-app-container=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          kubectl rollout status deployment/spring-app-deployment
+          kubectl apply -f deployment/deployment.yml
