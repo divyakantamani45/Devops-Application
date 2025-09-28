@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://mydb.cluster-xxxx.us-east-1.rds.amazonaws.com:5432/mydb
+    url: jdbc:postgresql://appdb-instance.ck1qmoy0wjp6.us-east-1.rds.amazonaws.com:5432/appdb
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
