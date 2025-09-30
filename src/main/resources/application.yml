@@ -10,14 +10,12 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-  cloud:
-    aws:
-      region:
-        static: us-east-1
-      credentials:
-        instance-profile: true
-      secretsmanager:
-        name: devops-secretmanager   # 👈 matches your secret name in AWS
+cloud:
+  aws:
+    region:
+      static: us-east-1
+    credentials:
+      instance-profile: true
 
 management:
   endpoints:
@@ -27,5 +25,6 @@ management:
 
 logging:
   level:
+    io.awspring.cloud.secretsmanager: DEBUG   # 👈 enables debug logs so you can confirm secrets are loaded
     org.springframework: INFO
     com.devops: DEBUG
