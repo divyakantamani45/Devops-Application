@@ -3,4 +3,4 @@ spring:
     aws:
       secretsmanager:
         enabled: true
-        name: myapp-secretmanager
+        name: devops-secretmanager
