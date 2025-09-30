@@ -29,16 +29,6 @@ spec:
               value: "us-east-1"
             - name: SPRING_CLOUD_AWS_SECRETSMANAGER_NAME
               value: "devops-secretmanager"
-            - name: DB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: devops-secretmanager
-                  key: DB_USERNAME
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: devops-secretmanager
-                  key: DB_PASSWORD
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
