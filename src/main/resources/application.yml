@@ -1,4 +1,13 @@
 spring:
+  config:
+    import: "aws-secretsmanager:devops-secretmanager"
+  cloud:
+    aws:
+      region:
+        static: us-east-1
+      credentials:
+        instance-profile: true  # use IRSA to authenticate with AWS Secrets Manager
+
   datasource:
     url: jdbc:postgresql://appdb-instance.ck1qmoy0wjp6.us-east-1.rds.amazonaws.com:5432/appdb
     username: ${DB_USERNAME}
@@ -13,6 +22,7 @@ management:
     web:
       exposure:
         include: health, prometheus
+
 logging:
   level:
     io.awspring.cloud.secretsmanager: DEBUG
