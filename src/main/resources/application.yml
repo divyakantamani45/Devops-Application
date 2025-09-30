@@ -1,19 +1,18 @@
 spring:
-  config:
-    import: aws-secretsmanager:arn:aws:secretsmanager:us-east-1:904331955008:secret:devops-secretmanager-BvG8SM
+  datasource:
+    url: jdbc:postgresql://appdb-instance.ck1qmoy0wjp6.us-east-1.rds.amazonaws.com:5432/appdb
+    username: appuser
+    password: ${DB_PASSWORD}
 
 cloud:
   aws:
     region:
-      static: us-east-1                 # 👈 keep keys as-is (DB_USERNAME, DB_PASSWORD, DB_NAME)
+      static: us-east-1
+    credentials:
+      instance-profile: true
 
+# Optional: debugging to confirm secrets load
 logging:
   level:
     io.awspring.cloud.secretsmanager: DEBUG
     org.springframework.boot.context.config: DEBUG
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: env,health
