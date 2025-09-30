@@ -19,7 +19,7 @@ spec:
       containers:
         - name: devops-app
           image: 904331955008.dkr.ecr.us-east-1.amazonaws.com/devops-ecr-prod:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
@@ -28,7 +28,7 @@ spec:
             - name: AWS_REGION
               value: "us-east-1"
             - name: SPRING_CLOUD_AWS_SECRETSMANAGER_NAME
-              value: "myapp-secretmanager"
+              value: "devops-secretmanager"
           securityContext:                # ✅ Security context for the container
             runAsUser: 1000               # non-root user
             runAsGroup: 1000
@@ -37,7 +37,7 @@ spec:
             capabilities:
               drop:
                 - ALL
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
           resources:                      # ✅ Resource limits (DoS protection)
             requests:
               cpu: "250m"
