@@ -18,6 +18,7 @@ cloud:
     credentials:
       instance-profile: true
     secretsmanager:
+      enabled: true
       name: devops-secretmanager   # 👈 the Name of your secret in AWS
       prefix: ""                   # 👈 keep keys as-is (DB_USERNAME, DB_PASSWORD, DB_NAME)
 
