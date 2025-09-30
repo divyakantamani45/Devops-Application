@@ -50,6 +50,13 @@ spec:
             limits:
               cpu: "500m"
               memory: "1Gi"
+          volumeMounts:                    # ⬅️ mount PVC inside container
+            - name: efs-storage
+              mountPath: /mnt/efs
+      volumes:                             # ⬅️ reference the PVC
+        - name: efs-storage
+          persistentVolumeClaim:
+            claimName: efs-claim
       securityContext:
         fsGroup: 2000
       terminationGracePeriodSeconds: 30
