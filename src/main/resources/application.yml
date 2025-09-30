@@ -1,6 +1,6 @@
 spring:
   config:
-    import: "aws-secretsmanager:arn:aws:secretsmanager:us-east-1:904331955008:secret:devops-secretmanager-BvG8SM"
+    import: "aws-secretsmanager:devops-secretmanager"
   cloud:
     aws:
       region:
