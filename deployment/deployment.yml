@@ -18,7 +18,7 @@ spec:
       serviceAccountName: devops-sa
       containers:
         - name: devops-app
-          image: devops-ecr-prod:latest
+          image: 904331955008.dkr.ecr.us-east-1.amazonaws.com/devops-ecr-prod:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
