@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://appdb-instance.ck1qmoy0wjp6.us-east-1.rds.amazonaws.com:5432/appdb
+    username: appuser
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update   # 🔹 creates/updates tables automatically
+    show-sql: true       # 🔹 optional: log SQL statements
+    properties:
+      hibernate:
+        format_sql: true # 🔹 pretty-print SQL in logs
+
+cloud:
+  aws:
+    region:
+      static: us-east-1
+    credentials:
+      instance-profile: true
+
+# Optional: debugging to confirm secrets load
+logging:
+  level:
+    io.awspring.cloud.secretsmanager: DEBUG
+    org.springframework.boot.context.config: DEBUG

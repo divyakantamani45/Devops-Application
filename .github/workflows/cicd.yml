@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main   # Trigger deployment only on main branch
+      - feature/adding-connections
 
 jobs:
   build-and-deploy:
@@ -24,7 +25,13 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-
+      - name: Dependency Vulnerability Scan
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'Devops-Application'
+          path: '.'
+          format: 'HTML'
+          out: 'reports'
       # Build Spring Boot app
       - name: Build with Maven
         run: mvn clean package -DskipTests
@@ -48,12 +55,15 @@ jobs:
           ECR_REPOSITORY: spring-app
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
+          docker build -t $ECR_REGISTRY/devops-ecr-prod:latest .
+          docker push $ECR_REGISTRY/devops-ecr-prod:latest
+      - name: Scan Docker Image for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: devops-ecr-prod:latest
       # Update kubeconfig for EKS
       - name: Update kubeconfig
-        run: aws eks update-kubeconfig --region us-east-1 --name my-eks-cluster
+        run: aws eks update-kubeconfig --region us-east-1 --name devops-eks-prod
 
       # Deploy to EKS
       - name: Deploy to EKS
@@ -62,5 +72,4 @@ jobs:
           ECR_REPOSITORY: spring-app
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          kubectl set image deployment/spring-app-deployment spring-app-container=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          kubectl rollout status deployment/spring-app-deployment
+          kubectl apply -f deployment/deployment.yml
